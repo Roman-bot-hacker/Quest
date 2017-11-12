@@ -8,72 +8,73 @@ const int n = 5;
 class Matrix
 {
 private:
-	int M[n][n];
-	double S[n];
+	int MainMatrix[n][n];
+	double WorkingMatrix[n];
 public:
-	void InputM();
-	void OutputM();
-	void SortM();
-	void SerGeom();
-	void SerArfm();
+	void InputMainMatrix();
+	void OutputMainMatrix();
+	void SortMainMatrixExchange();
+	void GeometricMeanEachLine();
+	void ArifmeticMeanOfGeometricMeans();
 
 };
 
-void Matrix::SerGeom()
+void Matrix::GeometricMeanEachLine()
 {
-	cout << "SER GEOM of each line:\n";
+	cout << "GEOMETRIC MEAN of each line:\n";
 	for (int i = 0; i < n; i++) {
-		int y = 0;
+		double y = 0;
+		double a = 1 / n;
 		for (int j = 0; j < n; j++) {
-			y += M[i][j];
+			y *= MainMatrix[i][j];
 		}
-		S[i] = y;
-		cout << "SerGeom for line " << i + 1 << " is " << S[i] << endl;
+		WorkingMatrix[i] = pow(y,a);
+		cout << "SerGeom for line " << i + 1 << " is " << WorkingMatrix[i] << endl;
 	}
 }
 
-void Matrix::SerArfm()
+void Matrix::ArifmeticMeanOfGeometricMeans()
 {
-	cout << "Ser Arfm of Ser Geom's is ";
+	cout << "Arifmatic mean of geometric means is ";
 	int z = 0;
 	for (int i = 0; i < n; i++) {
-		z += S[i];
+		z += WirkingMatrix[i];
 	}
 	z = z / n;
 	cout << z << endl;
 }
 
-void Matrix::InputM()
+void Matrix::InputMainMatrix()
 {
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
 			cout << "The new element of matrix [" << i+1 << ";" << j+1 << "] is ";
-			cin >> M[i][j];
+			cin >> MainMatrix[i][j];
 			cout << endl;
 		}
 	}
 }
 
-void Matrix::OutputM()
+void Matrix::OutputMainMatrix()
 {
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
 			if (j == 0) cout << endl;
-			cout << M[i][j] << "\t";
+			cout << MainMatrix[i][j] << "\t";
 		}
 	}
 }
 
-void Matrix::SortM()
+void Matrix::SortMainMatrixExchange()
 {
 	int x;
 	for (int j = 0; j <n; j++) {
 		for (int k = 0; k < n-1; k++) {
 			for (int i = 1; i < n; i++) {
-				if (M[i][j] < M[i - 1][j]) {
-					x = M[i][j];
-					M[i][j] = M[i - 1][j];
-					M[i - 1][j] = x;
+				if (MainMatrix[i][j] < MainMatrix[i - 1][j]) {
+					x = MainMatrix[i][j];
+					MainMatrix[i][j] = MainMatrix[i - 1][j];
+					MainMatrix[i - 1][j] = x;
 				}
 			}
 		}
@@ -84,19 +85,19 @@ void main()
 {
 	Matrix A;
 	cout << "ENTERING OF NEW MATRIX:\n";
-	A.InputM();
+	A.InputMainMatrix();
 	cout << "\n\n" << "____________________________________________________\n";
 	cout << "ENTERED MATRIX:\n";
-	A.OutputM();
+	A.OutputMainMatrix();
 	cout << "\n\n" << "____________________________________________________\n";
-	A.SortM();
+	A.SortMainMatrixExchange();
 	cout << "SORTED MATRIX:\n";
-	A.OutputM();
+	A.OutputMainMatrix();
 	cout << "\n\n" << "____________________________________________________\n";
-	cout << "SER GEOM:\n";
-	A.SerGeom();
+	cout << "Geometric mean:\n";
+	A.GeometricMeanEachLine();
 	cout << endl;
-	A.SerArfm();
+	A.ArifmeticMeanOfGeomethicMean();
 	cout << "\n\n" << "____________________________________________________\n";
 	system("pause");
 }
